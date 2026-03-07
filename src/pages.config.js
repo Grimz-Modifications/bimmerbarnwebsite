@@ -53,6 +53,7 @@ import Contact from './pages/Contact';
 import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
 import Shop from './pages/Shop';
+import Checkout from './pages/Checkout';
 import __Layout from './Layout.jsx';
 
 
@@ -63,6 +64,7 @@ export const PAGES = {
     "Home": Home,
     "ProductDetail": ProductDetail,
     "Shop": Shop,
+    "Checkout": Checkout,
 }
 
 export const pagesConfig = {
