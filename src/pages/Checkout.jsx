@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { ArrowLeft, CheckCircle2, Package, Loader2 } from "lucide-react";
-npm install @formspree/react
 
 // ----------------------------------------------------------------
 // OWNER EMAIL — change this to update where orders are sent
