@@ -26,14 +26,6 @@ export default function FeaturedProducts({ products, isLoading }) {
             {products.slice(0, 4).map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
-            
-            if (Array.isArray(products)) {
-    products.slice(0, 4).map((product) => (
-        // existing code for each product
-    ));
-} else {
-    console.warn('Products array is missing');
-}
           </div>
         ) : null}
       </div>
