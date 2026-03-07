@@ -12,3 +12,8 @@
 //  requiresAuth: false,
 //  appBaseUrl
 //});
+
+export const base44 = {
+  track: () => console.log('Base44 analytics disabled'),
+  fetch: () => console.log('Base44 fetch disabled'),
+};
