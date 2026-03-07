@@ -4,11 +4,57 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { ArrowLeft, CheckCircle2, Package, Loader2 } from "lucide-react";
+npm install @formspree/react
 
 // ----------------------------------------------------------------
 // OWNER EMAIL — change this to update where orders are sent
 // ----------------------------------------------------------------
-const OWNER_EMAIL = "bimmerbarnperformance@gmail.com";
+import React from 'react';
+import { useForm, ValidationError } from '@formspree/react';
+
+function ContactForm() {
+  const [state, handleSubmit] = useForm("xpqywdbe");
+  if (state.succeeded) {
+      return <p>Thanks for joining!</p>;
+  }
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="email">
+        Email Address
+      </label>
+      <input
+        id="email"
+        type="email" 
+        name="email"
+      />
+      <ValidationError 
+        prefix="Email" 
+        field="email"
+        errors={state.errors}
+      />
+      <textarea
+        id="message"
+        name="message"
+      />
+      <ValidationError 
+        prefix="Message" 
+        field="message"
+        errors={state.errors}
+      />
+      <button type="submit" disabled={state.submitting}>
+        Submit
+      </button>
+    </form>
+  );
+}
+
+function App() {
+  return (
+    <ContactForm />
+  );
+}
+
+export default App;
 
 const field = "w-full bg-neutral-900 border border-neutral-700 text-white text-sm px-4 py-3 focus:outline-none focus:border-neutral-500 placeholder:text-neutral-600";
 const label = "text-neutral-500 text-[10px] tracking-widest uppercase font-bold block mb-2";
