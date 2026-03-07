@@ -161,7 +161,7 @@ Reply to this email to confirm shipping details and payment with the customer.
                 <div><label className={label}>FIRST NAME *</label><input required value={form.first_name} onChange={e => set("first_name", e.target.value)} className={field} placeholder="John" /></div>
                 <div><label className={label}>LAST NAME *</label><input required value={form.last_name} onChange={e => set("last_name", e.target.value)} className={field} placeholder="Smith" /></div>
                 <div><label className={label}>EMAIL *</label><input type="email" required value={form.email} onChange={e => set("email", e.target.value)} className={field} placeholder="john@email.com" /></div>
-                <div><label className={label}>PHONE</label><input value={form.phone} onChange={e => set("phone", e.target.value)} className={field} placeholder="(555) 000-0000" /></div>
+                <div><label className={label}>PHONE</label><input value={form.phone} onChange={e => set("phone", e.target.value)} className={field} placeholder="(000) 000-0000" /></div>
               </div>
             </section>
 
@@ -171,11 +171,11 @@ Reply to this email to confirm shipping details and payment with the customer.
               <div className="space-y-4">
                 <div><label className={label}>STREET ADDRESS *</label><input required value={form.address} onChange={e => set("address", e.target.value)} className={field} placeholder="123 Main St" /></div>
                 <div className="grid grid-cols-2 gap-4">
-                  <div><label className={label}>CITY *</label><input required value={form.city} onChange={e => set("city", e.target.value)} className={field} placeholder="Denver" /></div>
-                  <div><label className={label}>STATE *</label><input required value={form.state} onChange={e => set("state", e.target.value)} className={field} placeholder="CO" /></div>
+                  <div><label className={label}>CITY *</label><input required value={form.city} onChange={e => set("city", e.target.value)} className={field} placeholder="British Columbia" /></div>
+                  <div><label className={label}>STATE *</label><input required value={form.state} onChange={e => set("state", e.target.value)} className={field} placeholder="BC" /></div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <div><label className={label}>ZIP CODE *</label><input required value={form.zip} onChange={e => set("zip", e.target.value)} className={field} placeholder="80202" /></div>
+                  <div><label className={label}>ZIP CODE *</label><input required value={form.zip} onChange={e => set("zip", e.target.value)} className={field} placeholder="X1X 1X1" /></div>
                   <div><label className={label}>COUNTRY *</label>
                     <select required value={form.country} onChange={e => set("country", e.target.value)} className={field + " cursor-pointer"}>
                       <option value="CA">Canada</option>
@@ -201,10 +201,10 @@ Reply to this email to confirm shipping details and payment with the customer.
                 <div className="space-y-4">
                   <div><label className={label}>STREET ADDRESS *</label><input required value={form.billing_address} onChange={e => set("billing_address", e.target.value)} className={field} placeholder="123 Main St" /></div>
                   <div className="grid grid-cols-2 gap-4">
-                    <div><label className={label}>CITY *</label><input required value={form.billing_city} onChange={e => set("billing_city", e.target.value)} className={field} placeholder="Denver" /></div>
-                    <div><label className={label}>STATE *</label><input required value={form.billing_state} onChange={e => set("billing_state", e.target.value)} className={field} placeholder="CO" /></div>
+                    <div><label className={label}>CITY *</label><input required value={form.billing_city} onChange={e => set("billing_city", e.target.value)} className={field} placeholder="British Columbia" /></div>
+                    <div><label className={label}>STATE *</label><input required value={form.billing_state} onChange={e => set("billing_state", e.target.value)} className={field} placeholder="BC" /></div>
                   </div>
-                  <div><label className={label}>ZIP CODE *</label><input required value={form.billing_zip} onChange={e => set("billing_zip", e.target.value)} className={field} placeholder="80202" /></div>
+                  <div><label className={label}>ZIP CODE *</label><input required value={form.billing_zip} onChange={e => set("billing_zip", e.target.value)} className={field} placeholder="X1X 1X1" /></div>
                 </div>
               )}
             </section>
