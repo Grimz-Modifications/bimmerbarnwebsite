@@ -236,8 +236,8 @@ export default function Layout({ children, currentPageName }) {
               <div className="space-y-3">
                 <Link to={createPageUrl("About")} className="block text-neutral-500 hover:text-white text-sm transition-colors">About Us</Link>
                 <Link to={createPageUrl("Contact")} className="block text-neutral-500 hover:text-white text-sm transition-colors">Contact</Link>
-                <p className="text-neutral-500 text-sm">info@bimmerbarn.com</p>
-                <p className="text-neutral-500 text-sm">(555) 123-4567</p>
+                <p className="text-neutral-500 text-sm">bimmerbarnperformance@gmail.com</p>
+                <p className="text-neutral-500 text-sm">(778) 988-4107</p>
               </div>
             </div>
           </div>

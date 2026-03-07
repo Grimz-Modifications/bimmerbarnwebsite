@@ -33,10 +33,10 @@ export default function CTASection() {
                   Contact Us
                 </Button>
               </Link>
-              <a href="tel:+15551234567">
+              <a href="tel:+17789884107">
                 <Button size="lg" variant="outline" className="rounded-full px-8 h-13 text-base font-semibold border-zinc-600 text-zinc-300 hover:bg-zinc-800 hover:text-white">
                   <Phone className="mr-2 w-5 h-5" />
-                  (555) 123-4567
+                  (778) 988-4107
                 </Button>
               </a>
             </div>

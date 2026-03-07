@@ -53,8 +53,8 @@ export default function Contact() {
               <h2 className="text-white font-black text-lg uppercase tracking-widest mb-6">CONTACT INFO</h2>
               <div className="space-y-6">
                 {[
-                  { icon: Mail, label: "EMAIL", val: "info@bimmerbarn.com" },
-                  { icon: Phone, label: "PHONE", val: "(555) 123-4567" },
+                  { icon: Mail, label: "EMAIL", val: "bimmerbarnperformance@gmail.com" },
+                  { icon: Phone, label: "PHONE", val: "(778) 988-4107" },
                   { icon: MapPin, label: "LOCATION", val: "Serving enthusiasts nationwide" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-start gap-4 border-b border-neutral-900 pb-6">
@@ -90,7 +90,7 @@ export default function Contact() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-neutral-500 text-[10px] tracking-widest uppercase font-bold block mb-2">PHONE</label>
-                  <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className={field} placeholder="(555) 000-0000" />
+                  <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className={field} placeholder="(000) 000-0000" />
                 </div>
                 <div>
                   <label className="text-neutral-500 text-[10px] tracking-widest uppercase font-bold block mb-2">VEHICLE</label>
