@@ -21,7 +21,7 @@ export default function Checkout() {
     // Contact
     first_name: "", last_name: "", email: "", phone: "",
     // Shipping
-    address: "", city: "", state: "", zip: "", country: "US",
+    address: "", city: "", state: "", zip: "", country: "CA",
     // Billing
     same_as_shipping: true,
     billing_address: "", billing_city: "", billing_state: "", billing_zip: "",
@@ -178,8 +178,8 @@ Reply to this email to confirm shipping details and payment with the customer.
                   <div><label className={label}>ZIP CODE *</label><input required value={form.zip} onChange={e => set("zip", e.target.value)} className={field} placeholder="80202" /></div>
                   <div><label className={label}>COUNTRY *</label>
                     <select required value={form.country} onChange={e => set("country", e.target.value)} className={field + " cursor-pointer"}>
-                      <option value="US">United States</option>
                       <option value="CA">Canada</option>
+                      <option value="US">United States</option>
                       <option value="UK">United Kingdom</option>
                       <option value="AU">Australia</option>
                       <option value="DE">Germany</option>
