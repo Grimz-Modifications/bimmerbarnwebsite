@@ -102,10 +102,10 @@ export default function Cart() {
                   </div>
                 </div>
                 <Link
-                  to={createPageUrl("Contact") + "?subject=Order Inquiry"}
+                  to={createPageUrl("Checkout")}
                   className="mt-6 w-full bg-white text-black text-xs font-black tracking-widest uppercase py-4 flex items-center justify-center gap-2 hover:bg-neutral-200 transition-colors"
                 >
-                  PROCEED TO INQUIRY <ArrowRight className="w-4 h-4" />
+                  PROCEED TO CHECKOUT <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
