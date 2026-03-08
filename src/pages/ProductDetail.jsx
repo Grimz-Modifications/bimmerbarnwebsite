@@ -15,6 +15,8 @@ export default function ProductDetail() {
   PRODUCTS.find((p) => p.id === slug) ||
   PRODUCTS.find((p) => p.id === id);
 
+  const [quantity, setQuantity] = useState(1);
+  
   const handleAddToCart = () => {
     setAdding(true);
     addToCart(product, quantity);
