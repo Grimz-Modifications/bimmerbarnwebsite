@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import { getCart, saveCart } from "../components/data";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { base44 } from "@/api/base44Client";
 import { ArrowLeft, CheckCircle2, Package, Loader2 } from "lucide-react";
 
-// ----------------------------------------------------------------
-// OWNER EMAIL — change this to update where orders are sent
-// ----------------------------------------------------------------
-const OWNER_EMAIL = "bimmerbarnperformance@gmail.com";
+const FORMSPREE_URL = "https://formspree.io/f/xpqywdbe";
 
 const field = "w-full bg-neutral-900 border border-neutral-700 text-white text-sm px-4 py-3 focus:outline-none focus:border-neutral-500 placeholder:text-neutral-600";
 const label = "text-neutral-500 text-[10px] tracking-widest uppercase font-bold block mb-2";
@@ -21,7 +17,7 @@ export default function Checkout() {
     // Contact
     first_name: "", last_name: "", email: "", phone: "",
     // Shipping
-    address: "", city: "", state: "", zip: "", country: "CA",
+    address: "", city: "", state: "", zip: "", country: "US",
     // Billing
     same_as_shipping: true,
     billing_address: "", billing_city: "", billing_state: "", billing_zip: "",
@@ -48,45 +44,22 @@ export default function Checkout() {
       ? shipping
       : `${form.billing_address}, ${form.billing_city}, ${form.billing_state} ${form.billing_zip}`;
 
-    const body = `
-NEW ORDER — ${orderNumber}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-CUSTOMER
-  Name:    ${form.first_name} ${form.last_name}
-  Email:   ${form.email}
-  Phone:   ${form.phone || "—"}
-
-SHIP TO
-  ${shipping}
-
-BILL TO
-  ${billing}
-
-ORDER ITEMS
-${itemLines}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ORDER TOTAL:  $${subtotal.toFixed(2)}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-${form.notes ? `CUSTOMER NOTES:\n${form.notes}` : ""}
-
-Reply to this email to confirm shipping details and payment with the customer.
-    `.trim();
-
-    await base44.integrations.Core.SendEmail({
-      to: OWNER_EMAIL,
-      subject: `[Bimmer Barn] New Order ${orderNumber} — ${form.first_name} ${form.last_name}`,
-      body,
-    });
-
-    // Also send confirmation to customer
-    await base44.integrations.Core.SendEmail({
-      from_name: "Bimmer Barn",
-      to: form.email,
-      subject: `Order Received — ${orderNumber}`,
-      body: `Hi ${form.first_name},\n\nWe've received your order (${orderNumber}) and will be in touch shortly to confirm shipping and payment.\n\nItems ordered:\n${itemLines}\n\nTotal: $${subtotal.toFixed(2)}\n\nShip to: ${shipping}\n\nThanks,\nBimmer Barn\nbimmerbarnperformance@gmail.com`,
+    await fetch(FORMSPREE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        order_number: orderNumber,
+        name: `${form.first_name} ${form.last_name}`,
+        email: form.email,
+        phone: form.phone || "—",
+        ship_to: shipping,
+        bill_to: billing,
+        items: itemLines,
+        order_total: `$${subtotal.toFixed(2)}`,
+        notes: form.notes || "—",
+        _subject: `[Bimmer Barn] New Order ${orderNumber} — ${form.first_name} ${form.last_name}`,
+        _replyto: form.email,
+      }),
     });
 
     // Clear cart
@@ -161,7 +134,7 @@ Reply to this email to confirm shipping details and payment with the customer.
                 <div><label className={label}>FIRST NAME *</label><input required value={form.first_name} onChange={e => set("first_name", e.target.value)} className={field} placeholder="John" /></div>
                 <div><label className={label}>LAST NAME *</label><input required value={form.last_name} onChange={e => set("last_name", e.target.value)} className={field} placeholder="Smith" /></div>
                 <div><label className={label}>EMAIL *</label><input type="email" required value={form.email} onChange={e => set("email", e.target.value)} className={field} placeholder="john@email.com" /></div>
-                <div><label className={label}>PHONE</label><input value={form.phone} onChange={e => set("phone", e.target.value)} className={field} placeholder="(000) 000-0000" /></div>
+                <div><label className={label}>PHONE</label><input value={form.phone} onChange={e => set("phone", e.target.value)} className={field} placeholder="(555) 000-0000" /></div>
               </div>
             </section>
 
@@ -171,15 +144,15 @@ Reply to this email to confirm shipping details and payment with the customer.
               <div className="space-y-4">
                 <div><label className={label}>STREET ADDRESS *</label><input required value={form.address} onChange={e => set("address", e.target.value)} className={field} placeholder="123 Main St" /></div>
                 <div className="grid grid-cols-2 gap-4">
-                  <div><label className={label}>CITY *</label><input required value={form.city} onChange={e => set("city", e.target.value)} className={field} placeholder="British Columbia" /></div>
-                  <div><label className={label}>STATE *</label><input required value={form.state} onChange={e => set("state", e.target.value)} className={field} placeholder="BC" /></div>
+                  <div><label className={label}>CITY *</label><input required value={form.city} onChange={e => set("city", e.target.value)} className={field} placeholder="Denver" /></div>
+                  <div><label className={label}>STATE *</label><input required value={form.state} onChange={e => set("state", e.target.value)} className={field} placeholder="CO" /></div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <div><label className={label}>ZIP CODE *</label><input required value={form.zip} onChange={e => set("zip", e.target.value)} className={field} placeholder="X1X 1X1" /></div>
+                  <div><label className={label}>ZIP CODE *</label><input required value={form.zip} onChange={e => set("zip", e.target.value)} className={field} placeholder="80202" /></div>
                   <div><label className={label}>COUNTRY *</label>
                     <select required value={form.country} onChange={e => set("country", e.target.value)} className={field + " cursor-pointer"}>
-                      <option value="CA">Canada</option>
                       <option value="US">United States</option>
+                      <option value="CA">Canada</option>
                       <option value="UK">United Kingdom</option>
                       <option value="AU">Australia</option>
                       <option value="DE">Germany</option>
@@ -201,10 +174,10 @@ Reply to this email to confirm shipping details and payment with the customer.
                 <div className="space-y-4">
                   <div><label className={label}>STREET ADDRESS *</label><input required value={form.billing_address} onChange={e => set("billing_address", e.target.value)} className={field} placeholder="123 Main St" /></div>
                   <div className="grid grid-cols-2 gap-4">
-                    <div><label className={label}>CITY *</label><input required value={form.billing_city} onChange={e => set("billing_city", e.target.value)} className={field} placeholder="British Columbia" /></div>
-                    <div><label className={label}>STATE *</label><input required value={form.billing_state} onChange={e => set("billing_state", e.target.value)} className={field} placeholder="BC" /></div>
+                    <div><label className={label}>CITY *</label><input required value={form.billing_city} onChange={e => set("billing_city", e.target.value)} className={field} placeholder="Denver" /></div>
+                    <div><label className={label}>STATE *</label><input required value={form.billing_state} onChange={e => set("billing_state", e.target.value)} className={field} placeholder="CO" /></div>
                   </div>
-                  <div><label className={label}>ZIP CODE *</label><input required value={form.billing_zip} onChange={e => set("billing_zip", e.target.value)} className={field} placeholder="X1X 1X1" /></div>
+                  <div><label className={label}>ZIP CODE *</label><input required value={form.billing_zip} onChange={e => set("billing_zip", e.target.value)} className={field} placeholder="80202" /></div>
                 </div>
               )}
             </section>
