@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom"; // Use useParams instead of URLSearchParams
-import { PRODUCTS, addToCart } from "../components/data";
+import { useParams, Link } from "react-router-dom";
+// FIXED IMPORT PATH
+import { PRODUCTS, addToCart } from "@/components/data";
 import { ArrowLeft, Package, Check, Truck, Shield, Minus, Plus, ShoppingCart } from "lucide-react";
 import { createPageUrl } from "@/utils";
 import { toast } from "sonner";
 
 export default function ProductDetail() {
-  // 1. Grab the slug from the new Route path="/product/:slug"
   const { slug } = useParams();
-  
   const [quantity, setQuantity] = useState(1);
   const [adding, setAdding] = useState(false);
 
-  // 2. FAIL-SAFE LOGIC: 
-  // We extract the ID from the slug. 
-  // If slug is "101-e46-m3-oil-filter", productId becomes "101"
-  // If slug is just "101", productId remains "101"
+  // Extract ID from slug (Fail-safe for clean URLs)
   const productId = slug ? slug.split("-")[0] : null;
-
-  // 3. Find the product by comparing the ID
   const product = PRODUCTS.find((p) => String(p.id) === String(productId));
 
-  // Scroll to top when the product changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
@@ -30,7 +23,6 @@ export default function ProductDetail() {
     if (!product) return;
     setAdding(true);
     addToCart(product, quantity);
-    // Dispatch storage event so Layout cart count updates
     window.dispatchEvent(new Event("storage"));
     toast.success("Added to cart!");
     setTimeout(() => setAdding(false), 600);
@@ -60,7 +52,6 @@ export default function ProductDetail() {
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Image */}
           <div className="bg-neutral-950 border border-neutral-800 aspect-square overflow-hidden">
             {product.image_url ? (
               <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
@@ -71,7 +62,6 @@ export default function ProductDetail() {
             )}
           </div>
 
-          {/* Info */}
           <div>
             {product.manufacturer && (
               <p className="text-neutral-500 text-xs font-bold tracking-widest uppercase mb-3">{product.manufacturer}</p>
@@ -85,7 +75,6 @@ export default function ProductDetail() {
               <p className="text-neutral-600 text-xs mt-1">Part #: {product.part_number}</p>
             )}
 
-            {/* Price */}
             <div className="mt-6 flex items-baseline gap-3">
               {hasDiscount ? (
                 <>
@@ -106,7 +95,6 @@ export default function ProductDetail() {
               </p>
             )}
 
-            {/* Stock */}
             <div className="mt-6">
               {product.in_stock !== false ? (
                 <div className="flex items-center gap-2 text-xs text-neutral-400 font-medium tracking-wide uppercase">
@@ -117,7 +105,6 @@ export default function ProductDetail() {
               )}
             </div>
 
-            {/* Qty + Cart */}
             <div className="mt-8 flex items-center gap-3">
               <div className="flex items-center border border-neutral-700">
                 <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-4 py-3 text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors">
@@ -138,7 +125,6 @@ export default function ProductDetail() {
               </button>
             </div>
 
-            {/* Trust badges */}
             <div className="mt-8 grid grid-cols-2 gap-3 pt-8 border-t border-neutral-800">
               <div className="flex items-center gap-3">
                 <Truck className="w-5 h-5 text-neutral-500 flex-shrink-0" />
