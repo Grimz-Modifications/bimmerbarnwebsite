@@ -1,5 +1,7 @@
 import fs from 'fs';
-import { PRODUCTS } from './src/components/data.js'; // Ensure this path is correct
+// We import the raw text and parse it or import directly if environment allows
+// For a simple Node script, we'll use the direct import
+import { PRODUCTS } from './src/components/Data.jsx'; 
 
 const BASE_URL = 'https://bimmerbarnperformance.com';
 
@@ -9,7 +11,11 @@ const generateSitemap = () => {
     '/shop',
   ];
 
-  const productRoutes = PRODUCTS.map(product => `/product/${product.slug || product.id}`);
+  // This matches your ProductDetail logic: use slug if it exists, otherwise use ID
+  const productRoutes = PRODUCTS.map(product => {
+    const identifier = product.slug || product.id;
+    return `/product/${identifier}`;
+  });
 
   const allRoutes = [...staticRoutes, ...productRoutes];
 
@@ -27,8 +33,13 @@ ${allRoutes
   .join('\n')}
 </urlset>`;
 
+  // Ensure the public directory exists
+  if (!fs.existsSync('./public')) {
+    fs.mkdirSync('./public');
+  }
+
   fs.writeFileSync('./public/sitemap.xml', sitemap);
-  console.log('✅ sitemap.xml generated in /public');
+  console.log(`✅ Sitemap generated with ${allRoutes.length} links.`);
 };
 
 generateSitemap();

@@ -14,9 +14,29 @@ export default function ProductDetail() {
     (p.slug && p.slug === slug) || String(p.id) === String(slug)
   );
 
+  // --- SEO & Tab Title Logic ---
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [slug]);
+
+    if (product) {
+      // 1. Set the Tab Title (e.g., "E46 M3 Oil Filter | Bimmer Barn Performance")
+      document.title = `${product.name} | Bimmer Barn Performance`;
+
+      // 2. Dynamically update the meta description for Google
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        const shortDesc = product.description 
+          ? product.description.substring(0, 150) + "..." 
+          : `High-quality ${product.name} for your BMW.`;
+        metaDescription.setAttribute("content", shortDesc);
+      }
+    }
+
+    // Cleanup: Reset to default title when user leaves the page
+    return () => {
+      document.title = "Bimmer Barn Performance | BMW Parts & Gear";
+    };
+  }, [slug, product]);
 
   const handleAddToCart = () => {
     if (!product) return;
@@ -45,7 +65,7 @@ export default function ProductDetail() {
 
   return (
     <>
-      {/* SEO Schema for Google Rankings */}
+      {/* SEO Schema for Google Rankings - Helps with Price/Stock display in search */}
       <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org/",
@@ -58,7 +78,8 @@ export default function ProductDetail() {
             "@type": "Offer",
             "priceCurrency": "USD",
             "price": product.sale_price || product.price,
-            "availability": product.in_stock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+            "availability": product.in_stock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+            "url": window.location.href
           }
         })}
       </script>
@@ -98,9 +119,11 @@ export default function ProductDetail() {
               </div>
 
               {product.description && (
-                <p className="mt-6 text-neutral-400 leading-relaxed text-sm border-t border-neutral-800 pt-6">
-                  {product.description}
-                </p>
+                <div className="mt-6 border-t border-neutral-800 pt-6">
+                   <p className="text-neutral-400 leading-relaxed text-sm">
+                    {product.description}
+                  </p>
+                </div>
               )}
 
               <div className="mt-8 flex items-center gap-3">
@@ -121,6 +144,18 @@ export default function ProductDetail() {
                   <ShoppingCart className="w-4 h-4" />
                   {adding ? "ADDING..." : "ADD TO CART"}
                 </button>
+              </div>
+
+              {/* Trust Badges */}
+              <div className="mt-12 grid grid-cols-2 gap-4 border-t border-neutral-900 pt-8">
+                <div className="flex items-center gap-3">
+                  <Truck className="w-5 h-5 text-neutral-500" />
+                  <span className="text-xs text-neutral-400 font-bold uppercase tracking-tighter">Fast Shipping</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Shield className="w-5 h-5 text-neutral-500" />
+                  <span className="text-xs text-neutral-400 font-bold uppercase tracking-tighter">Secure Checkout</span>
+                </div>
               </div>
             </div>
           </div>
