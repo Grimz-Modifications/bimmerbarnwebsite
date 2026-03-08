@@ -94,7 +94,7 @@ export default function Checkout() {
           <h2 className="text-2xl font-black text-white uppercase tracking-widest">ORDER PLACED</h2>
           <p className="text-neutral-400 text-sm mt-1 font-mono">{orderNumber}</p>
           <p className="text-neutral-500 mt-5 leading-relaxed text-sm">
-            We've received your order and sent you a confirmation to <span className="text-white">{form.email}</span>.<br />
+            Thank you, We've received your order.
             We'll reach out shortly to confirm payment and shipping.
           </p>
           <Link to={createPageUrl("Shop")} className="mt-8 inline-flex items-center gap-2 bg-white text-black text-xs font-black tracking-widest uppercase px-8 py-3.5 hover:bg-neutral-200 transition-colors">
