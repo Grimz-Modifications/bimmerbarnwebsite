@@ -7,7 +7,7 @@ export default function ProductCard({ product }) {
   const savings = hasDiscount ? (product.price - product.sale_price).toFixed(2) : null;
 
   // LOGIC: Use slug if it exists, otherwise use ID
-  // This creates either /product/e46-m3-bumper OR /product/101
+  // This ensures the URL matches what App.jsx and ProductDetail.jsx expect
   const productIdentifier = product.slug || product.id;
   const cleanUrl = `/product/${productIdentifier}`;
 
@@ -16,12 +16,14 @@ export default function ProductCard({ product }) {
       to={cleanUrl}
       className="group block bg-neutral-950 border border-neutral-800 hover:border-neutral-600 transition-colors"
     >
+      {/* Image Section */}
       <div className="relative overflow-hidden bg-neutral-900" style={{ aspectRatio: "1/1" }}>
         {product.image_url ? (
           <img
             src={product.image_url}
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
@@ -35,6 +37,7 @@ export default function ProductCard({ product }) {
         )}
       </div>
 
+      {/* Info Section */}
       <div className="p-3">
         {product.manufacturer && (
           <p className="text-neutral-500 text-[10px] font-bold tracking-widest uppercase mb-1">

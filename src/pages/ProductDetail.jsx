@@ -2,16 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { PRODUCTS, addToCart } from "@/components/data";
 import { ArrowLeft, Package, Check, Truck, Shield, Minus, Plus, ShoppingCart } from "lucide-react";
-import { createPageUrl } from "@/utils";
 import { toast } from "sonner";
 
 export default function ProductDetail() {
-  const { slug } = useParams(); 
+  const { slug } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [adding, setAdding] = useState(false);
 
-  // THE FIX: Search by slug FIRST, then fallback to ID
-  // String() ensures we compare "101" to "101" correctly
+  // Search by Slug first, then ID number
   const product = PRODUCTS.find((p) => 
     (p.slug && p.slug === slug) || String(p.id) === String(slug)
   );
@@ -35,8 +33,8 @@ export default function ProductDetail() {
         <div className="text-center">
           <Package className="w-16 h-16 text-neutral-700 mx-auto mb-4" />
           <p className="text-neutral-400 font-bold uppercase tracking-widest">Product not found</p>
-          <Link to={createPageUrl("Shop")} className="mt-6 inline-flex items-center gap-2 text-neutral-500 hover:text-white text-sm transition-colors">
-            <ArrowLeft className="w-4 h-4" /> Back to Shop
+          <Link to="/" className="mt-6 inline-flex items-center gap-2 text-neutral-500 hover:text-white text-sm transition-colors">
+            <ArrowLeft className="w-4 h-4" /> Back to Catalog
           </Link>
         </div>
       </div>
@@ -46,68 +44,88 @@ export default function ProductDetail() {
   const hasDiscount = product.sale_price && product.sale_price < product.price;
 
   return (
-    <div className="bg-black min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
-        <Link to={createPageUrl("Shop")} className="inline-flex items-center gap-2 text-neutral-500 hover:text-white text-sm mb-8 transition-colors">
-          <ArrowLeft className="w-4 h-4" /> Back to Shop
-        </Link>
+    <>
+      {/* SEO Schema for Google Rankings */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org/",
+          "@type": "Product",
+          "name": product.name,
+          "image": [product.image_url],
+          "description": product.description,
+          "brand": { "@type": "Brand", "name": product.manufacturer || "Bimmer Barn" },
+          "offers": {
+            "@type": "Offer",
+            "priceCurrency": "USD",
+            "price": product.sale_price || product.price,
+            "availability": product.in_stock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+          }
+        })}
+      </script>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="bg-neutral-950 border border-neutral-800 aspect-square overflow-hidden">
-            {product.image_url ? (
-              <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <Package className="w-24 h-24 text-neutral-700" />
-              </div>
-            )}
-          </div>
+      <div className="bg-black min-h-screen">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
+          <Link to="/" className="inline-flex items-center gap-2 text-neutral-500 hover:text-white text-sm mb-8 transition-colors">
+            <ArrowLeft className="w-4 h-4" /> Back to Catalog
+          </Link>
 
-          <div>
-            {product.manufacturer && (
-              <p className="text-neutral-500 text-xs font-bold tracking-widest uppercase mb-3">{product.manufacturer}</p>
-            )}
-            <h1 className="text-2xl sm:text-3xl font-black text-white uppercase leading-tight">{product.name}</h1>
-            
-            <div className="mt-6 flex items-baseline gap-3">
-              {hasDiscount ? (
-                <>
-                  <span className="text-white text-3xl font-black">${product.sale_price.toFixed(2)}</span>
-                  <span className="text-neutral-600 text-lg line-through">${product.price.toFixed(2)}</span>
-                </>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div className="bg-neutral-950 border border-neutral-800 aspect-square overflow-hidden">
+              {product.image_url ? (
+                <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
               ) : (
-                <span className="text-white text-3xl font-black">${product.price.toFixed(2)}</span>
+                <div className="w-full h-full flex items-center justify-center">
+                  <Package className="w-24 h-24 text-neutral-700" />
+                </div>
               )}
             </div>
 
-            {product.description && (
-              <p className="mt-6 text-neutral-400 leading-relaxed text-sm border-t border-neutral-800 pt-6">
-                {product.description}
-              </p>
-            )}
+            <div>
+              {product.manufacturer && (
+                <p className="text-neutral-500 text-xs font-bold tracking-widest uppercase mb-3">{product.manufacturer}</p>
+              )}
+              <h1 className="text-2xl sm:text-3xl font-black text-white uppercase leading-tight">{product.name}</h1>
+              
+              <div className="mt-6 flex items-baseline gap-3">
+                {hasDiscount ? (
+                  <>
+                    <span className="text-white text-3xl font-black">${product.sale_price.toFixed(2)}</span>
+                    <span className="text-neutral-600 text-lg line-through">${product.price.toFixed(2)}</span>
+                  </>
+                ) : (
+                  <span className="text-white text-3xl font-black">${product.price.toFixed(2)}</span>
+                )}
+              </div>
 
-            <div className="mt-8 flex items-center gap-3">
-              <div className="flex items-center border border-neutral-700">
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-4 py-3 text-neutral-400 hover:text-white transition-colors">
-                  <Minus className="w-4 h-4" />
-                </button>
-                <span className="px-5 py-3 text-white font-bold">{quantity}</span>
-                <button onClick={() => setQuantity(quantity + 1)} className="px-4 py-3 text-neutral-400 hover:text-white transition-colors">
-                  <Plus className="w-4 h-4" />
+              {product.description && (
+                <p className="mt-6 text-neutral-400 leading-relaxed text-sm border-t border-neutral-800 pt-6">
+                  {product.description}
+                </p>
+              )}
+
+              <div className="mt-8 flex items-center gap-3">
+                <div className="flex items-center border border-neutral-700">
+                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-4 py-3 text-neutral-400 hover:text-white transition-colors">
+                    <Minus className="w-4 h-4" />
+                  </button>
+                  <span className="px-5 py-3 text-white font-bold">{quantity}</span>
+                  <button onClick={() => setQuantity(quantity + 1)} className="px-4 py-3 text-neutral-400 hover:text-white transition-colors">
+                    <Plus className="w-4 h-4" />
+                  </button>
+                </div>
+                <button
+                  onClick={handleAddToCart}
+                  disabled={product.in_stock === false || adding}
+                  className="flex-1 bg-white text-black text-sm font-black tracking-widest uppercase py-4 hover:bg-neutral-200 transition-colors disabled:opacity-40 flex items-center justify-center gap-2"
+                >
+                  <ShoppingCart className="w-4 h-4" />
+                  {adding ? "ADDING..." : "ADD TO CART"}
                 </button>
               </div>
-              <button
-                onClick={handleAddToCart}
-                disabled={product.in_stock === false || adding}
-                className="flex-1 bg-white text-black text-sm font-black tracking-widest uppercase py-4 hover:bg-neutral-200 transition-colors disabled:opacity-40 flex items-center justify-center gap-2"
-              >
-                <ShoppingCart className="w-4 h-4" />
-                {adding ? "ADDING..." : "ADD TO CART"}
-              </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
