@@ -5,9 +5,9 @@ import { ArrowRight } from "lucide-react";
 
 // BMW chassis/series — primary focus
 const bmwSeries = [
-  { name: "E SERIES", sub: "E46 · E90 · E92", img: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&h=400&fit=crop&q=80", query: "?brand=BMW&search=e+series" },
-  { name: "F SERIES", sub: "F30 · F80 · F82", img: "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=600&h=400&fit=crop&q=80", query: "?brand=BMW&search=f+series" },
-  { name: "G SERIES", sub: "G20 · G80 · G82", img: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop&q=80", query: "?brand=BMW&search=g+series" },
+  { name: "E SERIES", sub: "E46 · E90 · E92", img: "https://cdn.sanity.io/images/c8ihu5xk/production/d8ba04618e8be2bd9c7e51abacd6b9829df67ed1-2048x1365.jpg?auto=format&w=1440&q=80&fit=min", query: "?brand=BMW&search=e+series" },
+  { name: "F SERIES", sub: "F30 · F80 · F82", img: "https://live.staticflickr.com/65535/48316883387_f775f9077b_b.jpg", query: "?brand=BMW&search=f+series" },
+  { name: "G SERIES", sub: "G20 · G80 · G82", img: "https://4kwallpapers.com/images/walls/thumbs_2t/12419.jpg", query: "?brand=BMW&search=g+series" },
 ];
 
 // Other brands — future expansion
