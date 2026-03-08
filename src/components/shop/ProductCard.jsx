@@ -6,12 +6,13 @@ import { Package } from "lucide-react";
 export default function ProductCard({ product }) {
   const hasDiscount = product.sale_price && product.sale_price < product.price;
   const savings = hasDiscount ? (product.price - product.sale_price).toFixed(2) : null;
+  const cleanPath = `/product/${product.id}-${product.slug || 'item'}`;
 
   return (
     <Link
-      to={createPageUrl("ProductDetail") + `?id=${product.id}`}
-      className="group block bg-neutral-950 border border-neutral-800 hover:border-neutral-600 transition-colors"
-    >
+      to={cleanPath}
+      className="group block bg-neutral-950 border border-neutral-800 hover:border-neutral-600 transition-colors">
+        
       {/* Image */}
       <div className="relative overflow-hidden bg-neutral-900" style={{ aspectRatio: "1/1" }}>
         {product.image_url ? (

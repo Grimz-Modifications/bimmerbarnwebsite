@@ -41,22 +41,40 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <Routes>
+      {/* 1. Home Page */}
       <Route path="/" element={
         <LayoutWrapper currentPageName={mainPageKey}>
           <MainPage />
         </LayoutWrapper>
       } />
-      {Object.entries(Pages).map(([path, Page]) => (
-        <Route
-          key={path}
-          path={`/${path}`}
-          element={
-            <LayoutWrapper currentPageName={path}>
-              <Page />
-            </LayoutWrapper>
-          }
-        />
-      ))}
+
+      {/* 2. Clean URL Product Route (Fail-safe Slug) */}
+      {/* This captures /product/123-e46-m3-part */}
+      <Route 
+        path="/product/:slug" 
+        element={
+          <LayoutWrapper currentPageName="ProductDetail">
+            <Pages.ProductDetail />
+          </LayoutWrapper>
+        } 
+      />
+
+      {/* 3. Dynamic Pages Mapper */}
+      {Object.entries(Pages)
+        .filter(([path]) => path !== 'ProductDetail') // Prevent duplicate /ProductDetail route
+        .map(([path, Page]) => (
+          <Route
+            key={path}
+            path={`/${path}`}
+            element={
+              <LayoutWrapper currentPageName={path}>
+                <Page />
+              </LayoutWrapper>
+            }
+          />
+        ))}
+
+      {/* 4. 404 Catch-all */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
@@ -64,7 +82,6 @@ const AuthenticatedApp = () => {
 
 
 function App() {
-
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClientInstance}>
@@ -77,4 +94,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

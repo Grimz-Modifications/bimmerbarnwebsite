@@ -10,8 +10,10 @@ export default function ProductDetail() {
   const productId = urlParams.get("id");
   const [quantity, setQuantity] = useState(1);
   const [adding, setAdding] = useState(false);
+  const { slug } = useParams();
+  const productId = slug.split("-")[0];
 
-  const product = PRODUCTS.find((p) => p.id === productId);
+  const product = PRODUCTS.find((p) => String(p.id) === String(productId));
 
   const handleAddToCart = () => {
     setAdding(true);
