@@ -65,8 +65,8 @@ export default function Contact() {
               <h2 className="text-white font-black text-lg uppercase tracking-widest mb-6">CONTACT INFO</h2>
               <div className="space-y-6">
                 {[
-                  { icon: Mail, label: "EMAIL", val: "info@bimmerbarn.com" },
-                  { icon: Phone, label: "PHONE", val: "(555) 123-4567" },
+                  { icon: Mail, label: "EMAIL", val: "bimmerbarnperformance@gmail.com" },
+                  { icon: Phone, label: "PHONE", val: "(778) 988-4107" },
                   { icon: MapPin, label: "LOCATION", val: "Serving enthusiasts nationwide" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-start gap-4 border-b border-neutral-900 pb-6">
