@@ -16,7 +16,7 @@ const slides = [
   {
     bg: "https://cdn.sanity.io/images/c8ihu5xk/production/d8ba04618e8be2bd9c7e51abacd6b9829df67ed1-2048x1365.jpg?auto=format&w=1440&q=80&fit=min",
     tag: "ENGINE PERFORMANCE",
-    title: "N54 · N55 · B58 · S55",
+    title: "N54 · S55 · B58",
     subtitle: "TUNING & UPGRADES",
     desc: "Intakes, turbos, intercoolers and more for BMW's most iconic engines.",
     cta: "SHOP ENGINE PARTS",

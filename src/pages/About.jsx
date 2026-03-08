@@ -16,7 +16,7 @@ export default function About() {
       {/* Hero */}
       <div className="relative overflow-hidden" style={{ height: "clamp(300px, 50vh, 500px)" }}>
         <img
-          src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1800&h=800&fit=crop&q=90"
+          src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&h=400&fit=crop&q=80"
           alt="About Bimmer Barn"
           className="w-full h-full object-cover opacity-50"
         />
