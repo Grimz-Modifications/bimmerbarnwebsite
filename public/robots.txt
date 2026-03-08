@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block indexing of cart and checkout to focus on parts
+Disallow: /cart
+Disallow: /checkout
+
+Sitemap: https://bimmerbarnperformance.com/sitemap.xml
