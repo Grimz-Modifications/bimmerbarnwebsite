@@ -4,6 +4,7 @@ import { ArrowLeft, Package, Check, Truck, Shield, Minus, Plus, ShoppingCart } f
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { toast } from "sonner";
+import { useState } from "react";
 
 export default function ProductDetail() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -15,13 +16,9 @@ export default function ProductDetail() {
   PRODUCTS.find((p) => p.id === slug) ||
   PRODUCTS.find((p) => p.id === id);
 
-import { useState } from "react";
-
-  function ProductDetail() {
-
-  const [quantity, setQuantity] = useState(1);
-  const [adding, setAdding] = useState(false);
-
+    const [quantity, setQuantity] = useState(1);
+    const [adding, setAdding] = useState(false);
+  
   const handleAddToCart = () => {
     setAdding(true);
     addToCart(product, quantity);
