@@ -4,33 +4,23 @@ import { ArrowLeft, Package, Check, Truck, Shield, Minus, Plus, ShoppingCart } f
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { toast } from "sonner";
-import { useState } from "react";
 
 export default function ProductDetail() {
-
-  const [quantity, setQuantity] = useState(1);
-  const [adding, setAdding] = useState(false);
-
   const urlParams = new URLSearchParams(window.location.search);
   const slug = urlParams.get("slug");
   const id = urlParams.get("id");
 
   const product =
-    PRODUCTS.find((p) => p.slug === slug) ||
-    PRODUCTS.find((p) => p.id === slug) ||
-    PRODUCTS.find((p) => p.id === id);
-
-  if (!product) {
-    return <div>Product not found</div>;
-  }
+  PRODUCTS.find((p) => p.slug === slug) ||
+  PRODUCTS.find((p) => p.id === slug) ||
+  PRODUCTS.find((p) => p.id === id);
 
   const handleAddToCart = () => {
     setAdding(true);
     addToCart(product, quantity);
-
+    // Dispatch storage event so Layout cart count updates
     window.dispatchEvent(new Event("storage"));
     toast.success("Added to cart!");
-
     setTimeout(() => setAdding(false), 600);
   };
 
