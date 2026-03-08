@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+// Corrected the import path to be extension-neutral
 import { PRODUCTS, addToCart } from "@/components/data";
 import { ArrowLeft, Package, Check, Truck, Shield, Minus, Plus, ShoppingCart } from "lucide-react";
 import { toast } from "sonner";

@@ -1,16 +1,15 @@
 import fs from 'fs';
-import { PRODUCTS } from './src/components/data.jsx'; 
+// We now point to the renamed .js file
+import { PRODUCTS } from './src/components/data.js'; 
 
 const BASE_URL = 'https://bimmerbarnperformance.com';
 
 const generateSitemap = () => {
   try {
-    console.log('--- Starting Sitemap Generation ---');
-    
     const staticRoutes = ['', '/shop'];
     
     // Fallback to ID if Slug isn't present
-    const productRoutes = PRODUCTS.map(product => {
+    const productRoutes = (PRODUCTS || []).map(product => {
       const identifier = product.slug || product.id;
       return `/product/${identifier}`;
     });
@@ -37,7 +36,6 @@ ${allRoutes
     console.log(`✅ Success! Sitemap created with ${allRoutes.length} links.`);
     
   } catch (error) {
-    // If it fails, we log it but let the build continue so the site stays live
     console.error('⚠️ Sitemap skipped due to error:', error.message);
   }
 };
