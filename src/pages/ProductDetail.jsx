@@ -11,7 +11,7 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [adding, setAdding] = useState(false);
 
-  const product = PRODUCTS.find((p) => p.id === productId);
+  const product = PRODUCTS.find(p => p.id === Number(id))
 
   const handleAddToCart = () => {
     setAdding(true);
