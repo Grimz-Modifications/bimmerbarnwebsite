@@ -1,21 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom"; // Use useParams instead of URLSearchParams
 import { PRODUCTS, addToCart } from "../components/data";
 import { ArrowLeft, Package, Check, Truck, Shield, Minus, Plus, ShoppingCart } from "lucide-react";
-import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { toast } from "sonner";
 
 export default function ProductDetail() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const productId = urlParams.get("id");
+  // 1. Grab the slug from the new Route path="/product/:slug"
+  const { slug } = useParams();
+  
   const [quantity, setQuantity] = useState(1);
   const [adding, setAdding] = useState(false);
-  const { slug } = useParams();
-  const productId = slug.split("-")[0];
 
+  // 2. FAIL-SAFE LOGIC: 
+  // We extract the ID from the slug. 
+  // If slug is "101-e46-m3-oil-filter", productId becomes "101"
+  // If slug is just "101", productId remains "101"
+  const productId = slug ? slug.split("-")[0] : null;
+
+  // 3. Find the product by comparing the ID
   const product = PRODUCTS.find((p) => String(p.id) === String(productId));
 
+  // Scroll to top when the product changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
+
   const handleAddToCart = () => {
+    if (!product) return;
     setAdding(true);
     addToCart(product, quantity);
     // Dispatch storage event so Layout cart count updates
