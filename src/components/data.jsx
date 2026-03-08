@@ -30,7 +30,7 @@ export const PRODUCTS = [
   // ============================================================
 
   // --- ENGINE ---
-  { id: "e1",  name: "Dinan Stage 1 Performance Tune",           price: 749,   sale_price: null,  category: "engine",       brand_compatibility: ["BMW"], model_compatibility: "E90 335i · E92 335i · E60 535i",   in_stock: true,  featured: false,  part_number: "DIN-N54-S1",         manufacturer: "Dinan",            image_url: "https://imgur.com/PQCdUId",  description: "ECU software calibration for N54 engines. Increases power output and throttle response. Plug-and-play installation." },
+  { id: "e1",  name: "Bimmer Barn Performance N54 Custom Tune",           price: 749,   sale_price: null,  category: "engine",       brand_compatibility: ["BMW"], model_compatibility: "E90 335i · E92 335i · E60 535i",   in_stock: true,  featured: false,  part_number: "BBP-N54-CUSTOM",         manufacturer: "Bimmer Barn Performance",            image_url: "https://69acd969fa9e210ee0f0d661.imgix.net/dyno%20graph.jpg",  description: "ECU software calibration for all N54 engines. Increases power output and throttle response. Plug-and-play remote installation." },
   { id: "e2",  name: "Vargas Turbo N54 Upgrade Kit",             price: 4200,  sale_price: null,  category: "engine",       brand_compatibility: ["BMW"], model_compatibility: "E90/E92 335i · E89 Z4 35i",        in_stock: true,  featured: false, part_number: "VTS-N54-TK",         manufacturer: "Vargas Turbo",     image_url: "https://images.unsplash.com/photo-1619682817481-e994891cd1f5?w=600&h=600&fit=crop&q=80",  description: "Drop-in turbo upgrade for N54. Supports up to 650whp. Includes all necessary hardware and instructions." },
 
   // --- EXHAUST ---
