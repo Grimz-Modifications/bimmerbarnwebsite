@@ -10,7 +10,7 @@ const navLinks = [
     label: "Shop BMW",
     page: "Shop",
     sub: ["E Series", "F Series", "G Series", "All BMW"],
-    subLinks: ["?brand=BMW&search=e+series", "?brand=BMW&search=f+series", "?brand=BMW&search=g+series", "?brand=BMW"],
+    subLinks: ["?brand=BMW&chassis=E", "?brand=BMW&chassis=F", "?brand=BMW&chassis=G", "?brand=BMW"],
   },
   {
     label: "Other Brands",
