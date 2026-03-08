@@ -2,6 +2,8 @@ import React, { useState, useMemo } from "react";
 import { PRODUCTS, CATEGORIES, BRANDS } from "../components/data";
 import ProductCard from "../components/shop/ProductCard";
 import { Search, ChevronDown } from "lucide-react";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Shop() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -13,6 +15,21 @@ export default function Shop() {
     sale: urlParams.get("sale") === "true",
     chassis: urlParams.get("chassis") || "",
   });
+
+  const location = useLocation();
+
+useEffect(() => {
+  const params = new URLSearchParams(location.search);
+
+  setFilters({
+    category: params.get("category") || "all",
+    brand: params.get("brand") || "All",
+    search: params.get("search") || "",
+    sale: params.get("sale") === "true",
+    chassis: params.get("chassis") || "",
+  });
+}, [location.search]);
+
   const [sortBy, setSortBy] = useState("newest");
 
   const filteredProducts = useMemo(() => {
