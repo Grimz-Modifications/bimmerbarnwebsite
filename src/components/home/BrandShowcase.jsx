@@ -9,7 +9,7 @@ const bmwSeries = [
   { name: "F SERIES", sub: "F30 · F80 · F82", img: "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=600&h=400&fit=crop&q=80", query: "?brand=BMW&search=f+series" },
   { name: "G SERIES", sub: "G20 · G80 · G82", img: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop&q=80", query: "?brand=BMW&search=g+series" },
 ];
-z
+
 // Other brands — future expansion
 const otherBrands = [
   { name: "MERCEDES", img: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&h=400&fit=crop&q=80" },
