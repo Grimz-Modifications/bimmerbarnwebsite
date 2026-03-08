@@ -6,15 +6,15 @@ import { createPageUrl } from "@/utils";
 import { toast } from "sonner";
 
 export default function ProductDetail() {
-  const { slug } = useParams(); // This could be "e46-m3-filter" OR "101"
+  const { slug } = useParams(); 
   const [quantity, setQuantity] = useState(1);
   const [adding, setAdding] = useState(false);
 
-  // 1. SEARCH LOGIC:
-  // First, try to find by slug.
-  // Second, if no slug matches, try to find by ID.
-  const product = PRODUCTS.find((p) => p.slug === slug) || 
-                  PRODUCTS.find((p) => String(p.id) === String(slug));
+  // THE FIX: Search by slug FIRST, then fallback to ID
+  // String() ensures we compare "101" to "101" correctly
+  const product = PRODUCTS.find((p) => 
+    (p.slug && p.slug === slug) || String(p.id) === String(slug)
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -53,7 +53,6 @@ export default function ProductDetail() {
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Image Section */}
           <div className="bg-neutral-950 border border-neutral-800 aspect-square overflow-hidden">
             {product.image_url ? (
               <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
@@ -64,13 +63,12 @@ export default function ProductDetail() {
             )}
           </div>
 
-          {/* Details Section */}
           <div>
             {product.manufacturer && (
               <p className="text-neutral-500 text-xs font-bold tracking-widest uppercase mb-3">{product.manufacturer}</p>
             )}
             <h1 className="text-2xl sm:text-3xl font-black text-white uppercase leading-tight">{product.name}</h1>
-
+            
             <div className="mt-6 flex items-baseline gap-3">
               {hasDiscount ? (
                 <>
@@ -101,7 +99,7 @@ export default function ProductDetail() {
               <button
                 onClick={handleAddToCart}
                 disabled={product.in_stock === false || adding}
-                className="flex-1 bg-white text-black text-sm font-black tracking-widest uppercase py-4 hover:bg-blue-500 hover:text-white transition-all disabled:opacity-40 flex items-center justify-center gap-2"
+                className="flex-1 bg-white text-black text-sm font-black tracking-widest uppercase py-4 hover:bg-neutral-200 transition-colors disabled:opacity-40 flex items-center justify-center gap-2"
               >
                 <ShoppingCart className="w-4 h-4" />
                 {adding ? "ADDING..." : "ADD TO CART"}

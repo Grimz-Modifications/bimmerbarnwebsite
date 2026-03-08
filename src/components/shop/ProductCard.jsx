@@ -1,22 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Package } from "lucide-react";
-// FIXED IMPORT PATH
-import { addToCart } from "@/components/data";
 
 export default function ProductCard({ product }) {
   const hasDiscount = product.sale_price && product.sale_price < product.price;
   const savings = hasDiscount ? (product.price - product.sale_price).toFixed(2) : null;
 
-  const generateSlug = (name) => {
-    return name
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
-  };
-
-  const productSlug = product.slug || generateSlug(product.name);
-  const cleanUrl = `/product/${product.id}-${productSlug}`;
+  // LOGIC: Use slug if it exists, otherwise use ID
+  // This creates either /product/e46-m3-bumper OR /product/101
+  const productIdentifier = product.slug || product.id;
+  const cleanUrl = `/product/${productIdentifier}`;
 
   return (
     <Link
@@ -38,11 +31,6 @@ export default function ProductCard({ product }) {
         {hasDiscount && (
           <div className="absolute top-2 left-2 bg-white text-black text-[10px] font-black tracking-widest px-2 py-1 uppercase">
             SAVE ${savings}
-          </div>
-        )}
-        {!product.in_stock && (
-          <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-            <span className="text-neutral-400 font-bold text-xs tracking-widest uppercase">OUT OF STOCK</span>
           </div>
         )}
       </div>
