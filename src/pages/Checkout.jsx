@@ -8,7 +8,7 @@ import { ArrowLeft, CheckCircle2, Package, Loader2 } from "lucide-react";
 // ----------------------------------------------------------------
 // OWNER EMAIL — change this to update where orders are sent
 // ----------------------------------------------------------------
-const OWNER_EMAIL = "https://formspree.io/f/xpqywdbe" ; method="POST";
+const OWNER_EMAIL = "bimmerbarnperformance@gmail.com";
 
 const field = "w-full bg-neutral-900 border border-neutral-700 text-white text-sm px-4 py-3 focus:outline-none focus:border-neutral-500 placeholder:text-neutral-600";
 const label = "text-neutral-500 text-[10px] tracking-widest uppercase font-bold block mb-2";
