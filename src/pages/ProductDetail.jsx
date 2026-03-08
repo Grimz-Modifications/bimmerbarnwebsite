@@ -12,6 +12,10 @@ export default function ProductDetail() {
   const [adding, setAdding] = useState(false);
 
   const product = PRODUCTS.find((p) => p.id === Number(productId));
+  
+  if (!product) {
+  return <div>Product not found</div>;
+  }
 
   const handleAddToCart = () => {
     setAdding(true);
