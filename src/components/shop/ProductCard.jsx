@@ -9,8 +9,8 @@ export default function ProductCard({ product }) {
 
   return (
     <Link
-      to={createPageUrl("ProductDetail") + `?id=${product.id}`}
-      className="group block bg-neutral-950 border border-neutral-800 hover:border-neutral-600 transition-colors"
+    to={`/product/${product.slug}`}
+    className="group block bg-neutral-950 border border-neutral-800 hover:border-neutral-600 transition-colors"
     >
       {/* Image */}
       <div className="relative overflow-hidden bg-neutral-900" style={{ aspectRatio: "1/1" }}>
