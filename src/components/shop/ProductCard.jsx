@@ -9,10 +9,7 @@ export default function ProductCard({ product }) {
 
   return (
     <Link
-    to={
-    createPageUrl("ProductDetail") +
-    `?slug=${product.slug || product.id}`
-    }
+      to={createPageUrl("ProductDetail") + `?id=${product.id}`}
       className="group block bg-neutral-950 border border-neutral-800 hover:border-neutral-600 transition-colors"
     >
       {/* Image */}

@@ -7,13 +7,11 @@ import { toast } from "sonner";
 
 export default function ProductDetail() {
   const urlParams = new URLSearchParams(window.location.search);
-  const slug = urlParams.get("slug");
-  const id = urlParams.get("id");
+  const productId = urlParams.get("id");
+  const [quantity, setQuantity] = useState(1);
+  const [adding, setAdding] = useState(false);
 
-  const product =
-  PRODUCTS.find((p) => p.slug === slug) ||
-  PRODUCTS.find((p) => p.id === slug) ||
-  PRODUCTS.find((p) => p.id === id);
+  const product = PRODUCTS.find((p) => p.id === productId);
 
   const handleAddToCart = () => {
     setAdding(true);
