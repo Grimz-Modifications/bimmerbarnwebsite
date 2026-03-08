@@ -15,8 +15,13 @@ export default function ProductDetail() {
   PRODUCTS.find((p) => p.id === slug) ||
   PRODUCTS.find((p) => p.id === id);
 
+import { useState } from "react";
+
+  function ProductDetail() {
+
   const [quantity, setQuantity] = useState(1);
-  
+  const [adding, setAdding] = useState(false);
+
   const handleAddToCart = () => {
     setAdding(true);
     addToCart(product, quantity);
