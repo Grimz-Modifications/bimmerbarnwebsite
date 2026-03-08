@@ -11,6 +11,7 @@ export default function Shop() {
     brand: urlParams.get("brand") || "All",
     search: urlParams.get("search") || "",
     sale: urlParams.get("sale") === "true",
+    chassis: urlParams.get("chassis") || "",
   });
   const [sortBy, setSortBy] = useState("newest");
 
@@ -19,6 +20,7 @@ export default function Shop() {
     if (filters.category !== "all") list = list.filter((p) => p.category === filters.category);
     if (filters.brand !== "All") list = list.filter((p) => p.brand_compatibility?.includes(filters.brand));
     if (filters.sale) list = list.filter((p) => p.sale_price && p.sale_price < p.price);
+    if (filters.chassis) list = list.filter((p) => p.model_compatibility?.toUpperCase().includes(filters.chassis.toUpperCase()));
     if (filters.search) {
       const q = filters.search.toLowerCase();
       list = list.filter((p) =>
