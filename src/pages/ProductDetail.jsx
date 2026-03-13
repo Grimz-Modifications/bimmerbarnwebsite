@@ -64,26 +64,39 @@ export default function ProductDetail() {
 
   const hasDiscount = product.sale_price && product.sale_price < product.price;
 
+  // --- Generate Absolute Image URL for Google Schema ---
+  const absoluteImageUrl = product.image_url 
+    ? (product.image_url.startsWith('http') ? product.image_url : `https://bimmerbarnperformance.com${product.image_url}`)
+    : "https://bimmerbarnperformance.com/og-image.jpg";
+
+  // --- Google Rich Results Schema Object ---
+  const productSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": product.name,
+    "image": [absoluteImageUrl],
+    "description": product.description || `High-quality ${product.name} for your BMW.`,
+    "brand": { 
+      "@type": "Brand", 
+      "name": product.manufacturer || "Bimmer Barn Performance" 
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": `https://bimmerbarnperformance.com/product/${slug}`,
+      "priceCurrency": "USD",
+      "price": product.sale_price || product.price,
+      "availability": product.in_stock !== false ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      "itemCondition": "https://schema.org/NewCondition"
+    }
+  };
+
   return (
     <>
-      {/* SEO Schema for Google Rankings - Helps with Price/Stock display in search */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org/",
-          "@type": "Product",
-          "name": product.name,
-          "image": [product.image_url],
-          "description": product.description,
-          "brand": { "@type": "Brand", "name": product.manufacturer || "Bimmer Barn" },
-          "offers": {
-            "@type": "Offer",
-            "priceCurrency": "USD",
-            "price": product.sale_price || product.price,
-            "availability": product.in_stock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-            "url": window.location.href
-          }
-        })}
-      </script>
+      {/* SEO Schema injected properly for React */}
+      <script 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} 
+      />
 
       <div className="bg-black min-h-screen">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
